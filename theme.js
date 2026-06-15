@@ -13,7 +13,7 @@
     toggle.setAttribute("aria-pressed", String(isLight));
     toggle.setAttribute("aria-label", `Switch to ${isLight ? "dark" : "light"} theme`);
     toggle.title = `Switch to ${isLight ? "dark" : "light"} theme`;
-    if (themeColor) themeColor.content = isLight ? "#f7fbf8" : "#050806";
+    if (themeColor) themeColor.content = isLight ? "#f4f7fb" : "#0b1017";
   }
 
   function saveTheme(theme) {
