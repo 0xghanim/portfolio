@@ -326,10 +326,61 @@ textarea {
 .content-card,
 .blog-card,
 .contact-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--panel);
   box-shadow: var(--shadow);
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.terminal-card::before,
+.content-card::before,
+.blog-card::before,
+.contact-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 0%, var(--green-dim), transparent 42%),
+    linear-gradient(135deg, transparent, rgba(77, 159, 255, 0.08), transparent);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px) scale(0.98);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.terminal-card > *,
+.content-card > *,
+.blog-card > *,
+.contact-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.terminal-card:hover,
+.content-card:hover,
+.contact-card:hover {
+  border-color: var(--green);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+  transform: translateY(-3px);
+}
+
+.terminal-card:hover::before,
+.content-card:hover::before,
+.blog-card:hover::before,
+.contact-card:hover::before {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .terminal-card {
@@ -544,6 +595,64 @@ textarea {
   font-size: 0.8rem;
 }
 
+.course-link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 1.03rem;
+  text-decoration: none;
+  opacity: 0.82;
+  transform: scale(1);
+  transform-origin: center;
+  transition:
+    color 220ms ease,
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.course-link:last-child {
+  border-bottom: 1px solid transparent;
+}
+
+.course-link strong {
+  color: var(--text);
+  transition: color 220ms ease;
+}
+
+.course-link time {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.86rem;
+  transition: color 220ms ease;
+}
+
+.course-link:hover,
+.course-link:focus-visible {
+  border-color: var(--green);
+  background-color: var(--green-dim);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  color: var(--text);
+  opacity: 1;
+  outline: none;
+  transform: scale(1.025);
+}
+
+.course-link:hover strong,
+.course-link:focus-visible strong,
+.course-link:hover time,
+.course-link:focus-visible time {
+  color: var(--green-bright);
+}
+
 .content-card ul {
   padding-left: 20px;
 }
@@ -599,7 +708,10 @@ textarea {
   flex-direction: column;
   box-shadow: none;
   text-decoration: none;
-  transition: 170ms ease;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
 }
 
 .blog-card:hover {
@@ -816,6 +928,12 @@ textarea {
   }
 
   .compact-list p {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .course-link {
     align-items: flex-start;
     flex-direction: column;
     gap: 2px;
